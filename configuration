@@ -1,0 +1,9 @@
+setUp(scn.inject(atOnceUsers(10)).protocols(httpConf))
+    .maxDuration(2 minutes)
+    .throttle(
+      reachRps(4) in (60 seconds),
+      holdFor(2 minutes))
+
+#Ran for 100 users, for 295 seconds. Since maxDuration is give, forcing the shutdown.
+setUp(scn.inject(rampUsers(100) over (600 seconds)).protocols(httpConf)).maxDuration(5 minutes)
+
